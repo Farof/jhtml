@@ -6,8 +6,8 @@ jhtml is a full javascript html templating library
 ## why
 
 - 	typesafe
-- 	no "with"
-- 	no "eval"
+- 	no "with" magic
+- 	no "eval" magic
 - 	full javascript power
 
 jhtml runs on nodejs server.
