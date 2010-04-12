@@ -1,5 +1,3 @@
-var D = jhtml.D,
-		E = jhtml.E;
 var buff;
 with(jhtml) {
 buff = 
@@ -24,13 +22,11 @@ D("strict",
 				p("my first paragraphe"),
 				p("my second paragraphe")
 			]),
-			div({id: "footer"}, function(){
-				return function(options) {
-						var buff = "";
-						buff += options.partials.footer;
-						return buff;
-				};
-			}())
+			div({id: "footer"}, function(options) {
+				var buff = "";
+				buff += options.partials.footer;
+				return buff;
+			})
 		])
 	])
 )

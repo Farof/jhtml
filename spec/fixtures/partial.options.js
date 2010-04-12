@@ -1,5 +1,4 @@
-exports.partial = jhtml.div({"class": function(){
-	return function(options) {
+exports.partial = jhtml.div({"class": function(options) {
 		return options.locals["class"];
 	}
-}()})
+});
