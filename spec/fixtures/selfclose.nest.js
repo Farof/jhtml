@@ -1,0 +1,1 @@
+exports.jhtml = jhtml.E("img", E());

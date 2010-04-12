@@ -1,0 +1,1 @@
+exports.jhtml = jhtml.E("div", "Prouf yeah !");

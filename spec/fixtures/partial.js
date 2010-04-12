@@ -1,0 +1,1 @@
+exports.partial = jhtml.span({"class": "joe"});
