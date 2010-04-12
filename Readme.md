@@ -16,11 +16,11 @@ It will enventually be a standard commonjs module designed for both browsers and
 
 ## example
 
-look at "spec/fixtures" for the moment
+look at "spec/fixtures/complex.js" and "spec/fixtures/complex.html" for the moment for a real life example
 
 ## documentation
 
-look at "spec/fixtures" for the moment
+look at "spec/fixtures/complex.js" and "spec/fixtures/complex.html" for the moment for a real life example
 
 ## unit test
 
