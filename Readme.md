@@ -16,7 +16,11 @@ It will enventually be a standard commonjs module designed for both browsers and
 
 ## example
 
+look at "spec/fixtures" for the moment
+
 ## documentation
+
+look at "spec/fixtures" for the moment
 
 ## unit test
 
