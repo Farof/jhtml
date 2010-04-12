@@ -1,1 +1,1 @@
-exports.partial = jhtml.span({"class": "joe"});
+exports.partial = jhtml.aliases.span({"class": "joe"});

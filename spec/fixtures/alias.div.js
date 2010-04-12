@@ -1,1 +1,1 @@
-exports.jhtml = jhtml.div();
+exports.jhtml = jhtml.aliases.div();

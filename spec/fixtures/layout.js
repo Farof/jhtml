@@ -1,4 +1,3 @@
-exports.jhtml = jhtml.div({
+exports.jhtml = jhtml.aliases.div({
 	id: "bob"
 }, jhtml.partial("partial"));
-//require("./partial").jhtml

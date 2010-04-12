@@ -73,7 +73,7 @@ describe "jhtml -->"
 	
 	describe "alias -->"
 		it "should have a \"div\" alias"
-			jhtml.div.should.be_a Function
+			jhtml.aliases.div.should.be_a Function
 		end
 		
 		it "should create a div tag"

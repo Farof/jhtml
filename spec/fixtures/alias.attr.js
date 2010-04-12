@@ -1,1 +1,1 @@
-exports.jhtml = jhtml.div({id: "plop"});
+exports.jhtml = jhtml.aliases.div({id: "plop"});
