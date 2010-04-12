@@ -12,7 +12,7 @@ jhtml is a full javascript html templating library
 
 jhtml runs on nodejs server.
 
-It will enventually be a standard commonjs module designed for both browsers and servers.
+It will eventually be a standard commonjs module designed for both browsers and servers.
 
 ## example
 
