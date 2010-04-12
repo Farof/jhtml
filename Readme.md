@@ -11,11 +11,21 @@ jhtml is a full javascript html templating library
 - 	full javascript power
 
 jhtml runs on nodejs server.
+
 It will enventually be a standard commonjs module designed for both browsers and servers.
 
 ## example
 
 ## documentation
+
+## unit test
+
+unit tests are written using [jspec](http://github.com/visionmedia/jspec)
+
+to run:
+
+	$ cd jhtml
+	$ jspec run --node
 
 ## License 
 
