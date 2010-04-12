@@ -19,8 +19,8 @@ jhtml.D("strict",
 				return nest;
 			}()),
 			div({id: "content"}, [
-				p("my first paragraphe"),
-				p("my second paragraphe")
+				p("my first paragraph"),
+				p("my second paragraph")
 			]),
 			div({id: "footer"}, function(options) {
 				var buff = "";
