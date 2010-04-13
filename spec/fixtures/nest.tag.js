@@ -1,1 +1,1 @@
-exports.jhtml = jhtml.E("div", E("span"));
+exports.jhtml = jhtml.E("div", jhtml.E("span"));

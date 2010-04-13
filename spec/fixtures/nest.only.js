@@ -1,1 +1,1 @@
-exports.jhtml = jhtml.E(E("pre"));
+exports.jhtml = jhtml.E(jhtml.E("pre"));

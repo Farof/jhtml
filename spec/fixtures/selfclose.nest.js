@@ -1,1 +1,1 @@
-exports.jhtml = jhtml.E("img", E());
+exports.jhtml = jhtml.E("img", jhtml.E());

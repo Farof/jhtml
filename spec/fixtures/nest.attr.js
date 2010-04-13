@@ -1,7 +1,7 @@
 exports.jhtml = jhtml.E({
 		id: "plop"
 	},
-	E("span", {
+	jhtml.E("span", {
 		"class": "prouf"
 	})
 );
