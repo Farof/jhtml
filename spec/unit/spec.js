@@ -230,6 +230,18 @@ describe "jhtml -->"
 		it "should create a div by default"
 			E()().should.eql "<div>\n\n</div>"
 		end
+		
+		it "should manage #render on promise"
+			debuffer(E("span", {foo: "bar"})).should.eql '<span foo="bar">\n\n</span>'
+		end
+		
+		it "should manage #render on promise with nest"
+			debuffer(E(E("p"))).should.eql "<div>\n<p>\n\n</p>\n</div>"
+		end
+		
+		it "should manage #render on promise with nest and options"
+			debuffer(E(E("p", E("span", function(options){return options.text}))), {locals: {text: "prouf"}}).should.eql "<div>\n<p>\n<span>\nprouf\n</span>\n</p>\n</div>"
+		end
 	end
 	
 	describe "D fonction"
