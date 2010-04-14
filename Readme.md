@@ -315,7 +315,16 @@ Supported, have to write doc.
 
 ### custom tag
 
-Supported, have to write doc.
+If for some reason you need a custom tag to be detected correctly (if I forgot one, notice me!), you can add them :
+
+	jhtml.addTag("custom");
+	E("custom")();		// <custom>\n\n</custom>
+	jhtml.aliases.custom()();		// same thing
+
+declare self closing tags by passing a truthy second argument:
+
+	jhtml.addTag("custom", true);
+	E("custom")();		// <custom />
 
 
 ## unit test
