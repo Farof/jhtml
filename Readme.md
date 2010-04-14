@@ -194,6 +194,32 @@ renders:
 	</img>
 
 
+#### aliases
+
+It might be a bit painful to write E(...) for each node. For better readability, you can use aliases.
+
+	var aliases = jhtml.aliases,
+			div = aliases.div,
+			p = aliases.p;
+	
+	div({id: "content"},
+		p("hello world!")
+	);
+
+Obviously each alias is equivalent to calling "E" with the alias name as first arg. p()() === E("p")()
+
+You might want to use a "with" scope for simplicity:
+
+	var template;
+	with(jhtml.aliases) {
+		template =
+		div(
+			p()
+		);
+	}
+
+
+
 ### rendering options
 
 You can pass options for the rendering. Supported options are :
