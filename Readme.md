@@ -308,9 +308,34 @@ Code is commented to understand what happened. Just plain old javascript. A bit 
 Supported, have to write doc.
 
 
-### doctypes
+### doctypes: D
 
-Supported, have to write doc.
+Doctypes work the same way as the E function, except it's D and you can specify property.
+
+	var D = jhtml.D,
+			html = jhtml.aliases.html;
+	D("xml",
+	D("strict"),
+	html()
+	)
+	
+renders:
+
+	<?xml version="1.0" encoding="utf-8" ?>
+	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+	<html>
+	
+	</html>
+
+supported doctypes:
+- xml
+- 5 (html5 doctype)
+- default (xhtml 1.0 transitional)
+- strict (xhtml 1.0 strict)
+- frameset (xhtml 1.0 frameset)
+- 1.1 (xhtml 1.1)
+- basic (xhtml basic 1.1)
+- mobile (xhtml mobile 1.1)
 
 
 ### custom tag
