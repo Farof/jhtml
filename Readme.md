@@ -23,19 +23,19 @@ You'll probably want to load some variables
 	var jhtml = require("jhtml");
 	var E = jhtml.E;
 
-Then build your template :
+Then build your template:
 
 	var template =
 	E({id: "content"},
 		E("p", "Hello world!")
 	);
 
-the "template" variable is now a promise that can deliver a string in two ways : executing the function or passing it to the render function. Both are equivalent :
+the "template" variable is now a promise that can deliver a string in two ways : executing the function or passing it to the render function. Both are equivalent:
 
 	template();
 	jhtml.render(template);
 
-Output :
+Output:
 
 	<div id="content">
 	<p>
@@ -43,12 +43,12 @@ Output :
 	</p>
 	</div>
 
-Note two things :
+Note two things:
 
 - There is no indentation. There will be a pretty mode, but it will obviously have a performance cost.
 - the "E" function executed with no tag name renders a "div".
 
-If its too verbose for you, you can uses aliases :
+If its too verbose for you, you can uses aliases:
 
 	var div = jhtml.aliases.div,
 			h2 = jhtml.aliases.h2;
@@ -58,7 +58,7 @@ If its too verbose for you, you can uses aliases :
 		)
 	);
 
-will output :
+will output:
 
 	<div class="title">
 	<h2>
@@ -66,7 +66,7 @@ will output :
 	</h2>
 	</div>
 
-If you dare, you can even build you template inside a "with" scope :
+If you dare, you can even build you template inside a "with" scope:
 
 	with(jhtml.aliases) {
 		p("I am ",
@@ -76,10 +76,221 @@ If you dare, you can even build you template inside a "with" scope :
 		)
 	}
 
+For detailed usage and more features such as locals, partials, doctypes and javascript fun, see the documentation below.
 
 ## documentation
 
-Look at "spec/fixtures/complex.js" and "spec/fixtures/complex.html" for the moment for a real life example.
+I assume in this documentation that jhtml is loaded as below:
+
+	var jhtml = require("jhtml");
+
+Notes:
+- For readability, I will indent the rendering examples. Real output are not indented.
+
+### E
+
+jhtml.E is the main function. It return a function that returns a string when executed. It creates a "div" tag by default.
+
+	var E = jhtml.E;
+	
+	var template = E();
+
+"template" is now a template waiting to be rendered. Two ways of doing it 
+
+	var str = template();
+	var str = jhtml.render(template);
+	
+"str" is now a string ready to be delivered by the engine of your choice.
+
+jhtml.E can take any number of arguments, in any kind of order. Here are the rules :
+
+- If the first argument is a String and a valid html4.1 or html5 tag, it is detected as the node tag.
+- If the first argument is a String and not a valid tag, it is detected as text to be inserted in the node.
+- If no valid tag is detected, it is defaulted to "div".
+- If the argument is a String and is not the first argument, it is detected as text to be inserted in the node.
+- If the argument is a literal Object, it is detected as the properties of the node. If multiple objects are found, last one will prevail.
+- If the argument is a Function, it is detected as node content and will be executed on rendering with appropriate locals and context. The function MUST return a String or an error will occur.
+- If the argument is an Array, each of its items will be detected as node content. Items wich are not String or Function will be ignored.
+- Literal Objects (node attributes) can have a function as property value. The function will be executed on rendering with appropriate locals and context.
+
+
+Knowing these rules, here are a few examples (not real life, just to demonstrate possible usage):
+
+	E({id: "content"},
+		E("p", "Hello world!")
+	);
+
+renders:
+
+	<div id="content">
+		<p>
+			Hello world!
+		</p>
+	</div>
+
+More complicated:
+
+	E({"class": function() {return "highlight";}}, "span", "Hello world!");
+
+renders:
+
+	<div class="hightlight">
+		span
+		Hello world!
+	</div>
+
+Why ? "span" is not given as first argument, so it's detected as inner text and the tag is defaulted to "div". The function associated with "class" property is executed on rendering.
+
+	E("hello", 
+		{id: "footer"},
+		{"class": "inner"}
+	);
+
+renders:
+
+	<div class="inner">
+		hello
+	</div>
+	
+"hello" is not a valid tag, it is detected as text and tag is defaulted to "div". The last litteral object is detected as node property. (I plan to merge them in the futur)
+
+	E("p",
+		function() {return "hello";},
+		function() {return " world!";}
+	);
+
+and
+
+	E("p", [
+		function() {return "hello";},
+		function() {return " world!";}
+	]);
+
+are equivalents and render:
+
+	<p>
+		hello
+		 world !
+	</p>
+
+Self closing tags are supported:
+
+	E("link", {type: "text/css", rel: "stylesheet", href: "screen.css"});
+
+renders:
+
+	<link type="text/css" rel="stylesheet" href="screen.css" />
+
+And accept inner text:
+
+	E("img", {src: "logo.jpg"},
+		"my logo"
+	);
+
+renders:
+
+	<img src="logo.jpg">
+		my logo
+	</img>
+
+
+### rendering options
+
+You can pass options for the rendering. Supported options are :
+
+- context: the "this" property of functions in the template will be set to "context" property
+- locals: "locals" will be given as first argument to functions in the template
+
+An example to understand :
+
+	var template =
+	E("p", {
+			"class": function(locals) {
+				return locals["class"];
+			}
+		},
+		function() {
+			return this.getMsg();
+		},
+		function(locals) {
+			return locals.name;
+		},
+		"!"
+	);
+	jhtml.render(template, {
+		context: {
+			getMsg: function() {
+				return "Goodbye "
+			}
+		},
+		locals: {
+			name: "Joe",
+			"class": "msg"
+		}
+	});
+
+renders:
+
+	<p class="msg">
+		Goodbye 
+		Joe
+		!
+	</p>
+
+In this example, locals and context are given to functions returning inner text and the value of a tag property.
+
+
+### if, for, ... (and other javascript fun)
+
+Really nothing special here, juste plain old javascript on top of the lib rendering rules.
+
+	var template =
+	E("ul", function makemenu(options) { 									// function that build the menu
+		return options.links.map(function makelink(link) { 	// we execute a function on each link
+			return E("li",																		// the function creates a jhtml template
+								E("a", {href: link})										// and uses the link property
+			)(); 																							// and executes the link template, returning a String
+		}).join("\n")																				// All the strings are then joined together and returned.
+	});
+	template({ locals: {
+		links: [
+			"link1.html",
+			"link2.html",
+			"link3.html"
+		]
+	}});
+
+renders:
+
+	<ul>
+		<li>
+			<a href="link1.html" />
+		</li>
+		<li>
+			<a href="link2.html" />
+		</li>
+		<li>
+			<a href="link3.html" />
+		</li>
+	</ul>
+
+Code is commented to understand what happened. Just plain old javascript. A bit verbose maybe but hey, that's a fair price in my opinion. Insert whatever you like in the functions, just remember it as to return a String.
+
+
+### partials
+
+Supported, have to write doc.
+
+
+### doctypes
+
+Supported, have to write doc.
+
+
+### custom tag
+
+Supported, have to write doc.
+
 
 ## unit test
 
@@ -89,6 +300,14 @@ to run them:
 
 	$ cd jhtml
 	$ jspec run --node
+
+
+## get involved
+
+- English is not my main language, it may look obvious if you made it down here. Repport typo, bad sentences, etc... I'm ok with it!
+- Repport bugs, make suggestions.
+- Patch! (I'm a git noob though, might need help pulling other people work :p)
+
 
 ## License 
 
