@@ -293,6 +293,13 @@ describe "jhtml -->"
 			debuffer(bufferize(t2b(tokenize("blobla")))).should.eql "<blobla />"
 		end
 		
+		it "should make new tag alias"
+			jhtml.tags.indexOf("hey").should.be_less_than 0
+			jhtml.addTag("hey");
+			jhtml.aliases.hey.should.be_a Function
+			jhtml.aliases.hey()().should.eql "<hey>\n\n</hey>"
+		end
+		
 		it "should access doctypes"
 			jhtml.doctypes.should.be_an Object
 		end
