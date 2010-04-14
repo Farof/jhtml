@@ -245,12 +245,12 @@ In this example, locals and context are given to functions returning inner text 
 Really nothing special here, juste plain old javascript on top of the lib rendering rules.
 
 	var template =
-	E("ul", function makemenu(options) { 									// function that build the menu
+	E("ul", function makemenu(options) { 				// function that build the menu
 		return options.links.map(function makelink(link) { 	// we execute a function on each link
-			return E("li",																		// the function creates a jhtml template
-								E("a", {href: link})										// and uses the link property
-			)(); 																							// and executes the link template, returning a String
-		}).join("\n")																				// All the strings are then joined together and returned.
+			return E("li",					// the function creates a jhtml template
+					E("a", {href: link})		// and uses the link property
+			)(); 						// and executes the link template, returning a String
+		}).join("\n")						// All the strings are then joined together and returned.
 	});
 	template({ locals: {
 		links: [
