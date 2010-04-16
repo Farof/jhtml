@@ -145,4 +145,8 @@ describe "fixtures -->"
 					"class": "foo"
 			}});
 	end
+	
+	it "should manage partial prefix configuration"
+		assert("layout.prefix");
+	end
 end

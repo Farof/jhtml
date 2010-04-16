@@ -1,0 +1,1 @@
+exports.partial = jhtml.E({id: "foo"});
