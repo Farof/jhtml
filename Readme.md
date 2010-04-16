@@ -351,6 +351,7 @@ renders:
 	</html>
 
 supported doctypes:
+
 - xml
 - 5 (html5 doctype)
 - default (xhtml 1.0 transitional)
