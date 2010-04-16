@@ -1,6 +1,6 @@
 describe "jhtml -->"
 	before
-		debuffer = jhtml.debuffer;
+		debuffer = jhtml.render;
 		bufferize = jhtml.bufferize;
 		tokenize = jhtml.tokenize;
 		t2b = jhtml.token2buffer;
