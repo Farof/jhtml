@@ -1,4 +1,11 @@
 
+0.1.0 / 2010-04-14
+------------------
+
+* restored partials support
+* example and doc added
+
+
 0.0.9 / 2010-04-14
 ------------------
 

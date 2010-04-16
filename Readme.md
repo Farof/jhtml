@@ -305,7 +305,30 @@ Code is commented to understand what happened. Just plain old javascript. A bit 
 
 ### partials
 
-Supported, have to write doc.
+Partials is the hability to load templates parts from inside a template.
+
+The partial template is loaded via require, and by default the path is prefixed with "partials/". The partial must also be registered in a property identical to the file basename. Example:
+
+	E({id: "foo"},
+		jhtml.partial("myPartial")		// require("partials/myPartial")).myPartial
+	);
+
+jhtml templates being pure javascript, this is just for convenience, you can easily load partial the hard way.
+
+You can configure the path in which are located the partials:
+
+	jhtml.partial.prefix = "customDir";
+	E(
+		jhtml.partial("myOtherPartial")		// require("customeDir/myOtherPartial").myOtherPartial	
+	);
+
+Finaly, you can pass options as a second argument to the partial method. Supported arguments are "locals" and "context" describe above. Important note : If you pass options to the method, it is the rendered string that will be inserted in the main template.
+
+	E(
+			jhtml.partial("myPartial", { locals: {
+				title: "myTitle"
+			}})		// string is calculated given the options and inserted as child text
+	);
 
 
 ### doctypes: D
