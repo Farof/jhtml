@@ -164,11 +164,11 @@ describe "jhtml -->"
 		end
 		
 		it "should buffer tag"
-			debuffer(bufferize(t2b(tokenize()))).should.eql "<div>\n\n</div>"
+			debuffer(bufferize(t2b(tokenize()))).should.eql "<div>\n</div>"
 		end
 		
 		it "should buffer attributes"
-			debuffer(bufferize(t2b(tokenize({foo: "bar", bar: "foo"})))).should.eql '<div foo="bar" bar="foo">\n\n</div>'
+			debuffer(bufferize(t2b(tokenize({foo: "bar", bar: "foo"})))).should.eql '<div foo="bar" bar="foo">\n</div>'
 		end
 		
 		it "should buffer text"
@@ -180,15 +180,15 @@ describe "jhtml -->"
 		end
 		
 		it "should buffer function as property value"
-			debuffer(bufferize(t2b(tokenize({foo: function() {return "plop"}})))).should.eql '<div foo="plop">\n\n</div>'
+			debuffer(bufferize(t2b(tokenize({foo: function() {return "plop"}})))).should.eql '<div foo="plop">\n</div>'
 		end
 		
 		it "should buffer function as property value with context"
-			debuffer(bufferize(t2b(tokenize({foo: function() {return this.prop}}))), {context: {prop: "plop"}}).should.eql '<div foo="plop">\n\n</div>'
+			debuffer(bufferize(t2b(tokenize({foo: function() {return this.prop}}))), {context: {prop: "plop"}}).should.eql '<div foo="plop">\n</div>'
 		end
 		
 		it "should buffer function as property value with options"
-			debuffer(bufferize(t2b(tokenize({foo: function(options) {return options.locals.prop}}))), {locals: {prop: "plop"}}).should.eql '<div foo="plop">\n\n</div>'
+			debuffer(bufferize(t2b(tokenize({foo: function(options) {return options.locals.prop}}))), {locals: {prop: "plop"}}).should.eql '<div foo="plop">\n</div>'
 		end
 		
 		it "should buffer buffer"
@@ -228,15 +228,15 @@ describe "jhtml -->"
 		end
 		
 		it "should create a div by default"
-			E()().should.eql "<div>\n\n</div>"
+			E()().should.eql "<div>\n</div>"
 		end
 		
 		it "should manage #render on promise"
-			debuffer(E("span", {foo: "bar"})).should.eql '<span foo="bar">\n\n</span>'
+			debuffer(E("span", {foo: "bar"})).should.eql '<span foo="bar">\n</span>'
 		end
 		
 		it "should manage #render on promise with nest"
-			debuffer(E(E("p"))).should.eql "<div>\n<p>\n\n</p>\n</div>"
+			debuffer(E(E("p"))).should.eql "<div>\n<p>\n</p>\n</div>"
 		end
 		
 		it "should manage #render on promise with nest and options"
@@ -283,7 +283,7 @@ describe "jhtml -->"
 			jhtml.tags.indexOf("blobblo").should.be_less_than 0
 			jhtml.addTag("bloblo");
 			jhtml.tags.indexOf("bloblo").should.be_at_least 0
-			debuffer(bufferize(t2b(tokenize("bloblo")))).should.eql "<bloblo>\n\n</bloblo>"
+			debuffer(bufferize(t2b(tokenize("bloblo")))).should.eql "<bloblo>\n</bloblo>"
 		end
 		
 		it "should add self closing tag"
@@ -297,7 +297,7 @@ describe "jhtml -->"
 			jhtml.tags.indexOf("hey").should.be_less_than 0
 			jhtml.addTag("hey");
 			jhtml.aliases.hey.should.be_a Function
-			jhtml.aliases.hey()().should.eql "<hey>\n\n</hey>"
+			jhtml.aliases.hey()().should.eql "<hey>\n</hey>"
 		end
 		
 		it "should access doctypes"
